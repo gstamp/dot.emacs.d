@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: debug
+# key: dbg
+# --
+println!("Variable ${1:var_name} is {:?}", $1);

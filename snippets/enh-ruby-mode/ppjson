@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: prettyprintjson
+# key: ppjson
+# --
+require 'json';  puts JSON.pretty_generate(${1:var_name})

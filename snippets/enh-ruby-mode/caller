@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: caller
+# key: caller
+# --
+STDERR.puts "Backtrace: \n"
+STDERR.puts caller

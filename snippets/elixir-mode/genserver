@@ -1,0 +1,43 @@
+# -*- mode: snippet -*-
+# name: GenServer
+# key: genserver
+# --
+defmodule ${1:Module} do
+  use GenServer
+
+  # Wrapper to start server
+  def start_link() do
+    GenServer.start_link(__MODULE__, :ok, name: __MODULE__)
+  end
+
+  # Invoked when the server is started. start_link/3 or start/3 will block until it returns
+  def init(:ok) do
+    state = 0
+    {:ok, state}
+
+    # {:ok, state}
+    # {ok, state, 5_000} - Returning {:ok, state, timeout} is similar to {:ok, state} except
+    #                      handle_info(:timeout, state) will be called after timeout
+    #                      milliseconds if no messages are received within the timeout.
+    # {:ok, state, :hibernate} - process is hibernated before entering the loop
+    # {:stop, reason*} - cause start_link/3 to return {:error, reason} and the process to exit with reason reason
+    # :ignore - Exit process normally
+  end
+
+  # Client methods
+  def hello(who), do: GenServer.call(__MODULE__, {:hello, who})
+  def inc(), do: GenServer.cast(__MODULE__, {:inc})
+
+  # Server methods
+  def handle_call({:hello, who}, _from, state) do
+      IO.puts "Hello #{who}"
+      {:reply, :ok, state}
+  end
+
+  def handle_cast({:inc}, state) do
+    new_state = state + 1
+    IO.puts "Incremented to #{new_state}"
+    {:noreply, new_state}
+  end
+end
+$0

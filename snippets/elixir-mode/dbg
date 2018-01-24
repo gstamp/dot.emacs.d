@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: dbg
+# key: dbg
+# --
+IO.puts("$1 = #{inspect $1}")$0

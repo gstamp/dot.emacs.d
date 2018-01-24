@@ -1,0 +1,41 @@
+# -*- mode: snippet -*-
+# name: Supervisor
+# key: supervisor
+# --
+defmodule ${1:Module}.Supervisor do
+  use Supervisor
+
+  def start_link do
+    Supervisor.start_link(__MODULE__, :ok)
+  end
+
+  def init(:ok) do
+    # The children you're supervising:
+    #
+    # worker(module, args, options \\ [])
+    # supervisor(module, args, options \\ [])
+    #
+    # Examples:
+    # supervisor(ElementsIndexer.Projection.ItemManagerSupervisor, []),
+    # worker(ElementsIndexer.Shoebox.EventProcessor, [1000]),
+
+    children = [
+      $0
+    ]
+
+    # Strategies
+    # :one_for_one - if a child process terminates, only that process is restarted.
+    # :one_for_all - if a child process terminates, all other child processes
+    #   are terminated and then all child processes (including the terminated one)
+    #   are restarted.
+    # :rest_for_one - if a child process terminates, the “rest” of the child
+    #   processes, i.e., the child processes after the terminated one in start
+    #   order, are terminated. Then the terminated child process and the rest of
+    #   the child processes are restarted.
+    # :simple_one_for_one - similar to :one_for_one but suits better when
+    #   dynamically attaching children. This strategy requires the supervisor
+    #   specification to contain only one child. Many functions in this module
+    #   behave slightly differently when this strategy is used.
+    supervise(children, strategy: :one_for_one)
+  end
+end

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: debug
+# key: dbg
+# --
+STDERR.puts "Variable ${1:var_name} is #{$1.inspect}"
