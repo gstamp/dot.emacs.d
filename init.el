@@ -11,9 +11,10 @@
 
 (require 'package)
 (setq package-enable-at-startup nil) ;; Don't load packages on startup
-(setq package-archives '(("org"       . "http://orgmode.org/elpa/")
-                          ("gnu"       . "http://elpa.gnu.org/packages/")
-                          ("melpa"     . "https://melpa.org/packages/")))
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                          ("marmalade" . "https://marmalade-repo.org/packages/")
+                          ("melpa" . "http://melpa.milkbox.net/packages/")
+                          ))
 (package-initialize)
 
 ;; Bootstrap use-package
@@ -45,7 +46,8 @@
 
 (load "~/.emacs.secrets" t)
 
-(require 'diminish) ;; Hide stuff on the command line
+(use-package diminish)
+
 (require 'cl) ;; common lisp functions
 
 ;; UTF-8 Thanks
@@ -136,6 +138,15 @@
 (defadvice terminal-init-xterm
   (after map-C-comma-escape-sequence activate)
   (define-key input-decode-map "\e[1;," (kbd "C-,")))
+
+;;;;;;;;;;;
+;; Lispy ;;
+;;;;;;;;;;;
+
+(use-package lispy
+  :config
+  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1))))
+
 
 ;;;;;;;;;;;;;
 ;; General ;;
@@ -302,45 +313,49 @@
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 110))
 
-(defun stamp/set-gui-config ()
-  "Enable my GUI settings"
-  (interactive)
-  (menu-bar-mode +1)
-  ;; Highlight the current line
-  (global-hl-line-mode +1)
-  ;; Load theme
-  ;;(load-theme 'spacemacs-light)
-  (load-theme 'spacemacs-dark)
-  ;;(load-theme 'idea-darkula)
-  ;;(load-theme 'doom-one)
-  ;;(load-theme 'doom-light)
-  ;;(load-theme 'darkokai)
-  ;;(load-theme 'hydandata-light)
-  ;;(load-theme 'pastelmac)
-  (load-theme 'base16-bespin)
-  )
+(use-package base16-theme
+  :ensure t
+  :init
+  (defun stamp/set-gui-config ()
+    "Enable my GUI settings"
+    (interactive)
+    (menu-bar-mode +1)
+    ;; Highlight the current line
+    (global-hl-line-mode +1)
+    ;; Load theme
+    ;;(load-theme 'spacemacs-light)
+    ;;(load-theme 'spacemacs-dark)
+    ;;(load-theme 'idea-darkula)
+    ;;(load-theme 'doom-one)
+    ;;(load-theme 'doom-light)
+    ;;(load-theme 'darkokai)
+    ;;(load-theme 'hydandata-light)
+    ;;(load-theme 'pastelmac)
+    (load-theme 'base16-bespin)
+    )
 
-(defun stamp/set-terminal-config ()
-  "Enable my terminal settings"
-  (interactive)
-  (xterm-mouse-mode 1)
-  (menu-bar-mode -1))
+  (defun stamp/set-terminal-config ()
+    "Enable my terminal settings"
+    (interactive)
+    (xterm-mouse-mode 1)
+    (menu-bar-mode -1))
 
-(defun stamp/set-ui ()
-  (if (display-graphic-p)
+  (defun stamp/set-ui ()
+    (if (display-graphic-p)
       (stamp/set-gui-config)
-    (stamp/set-terminal-config)))
+      (stamp/set-terminal-config)))
 
-(defun stamp/set-frame-config (&optional frame)
-  "Establish settings for the current terminal."
-  (with-selected-frame frame
-    (stamp/set-ui)))
+  (defun stamp/set-frame-config (&optional frame)
+    "Establish settings for the current terminal."
+    (with-selected-frame frame
+      (stamp/set-ui))))
 
 ;; Only need to set frame config if we are in daemon mode
 (if (daemonp)
-    (add-hook 'after-make-frame-functions 'stamp/set-frame-config)
+  (add-hook 'after-make-frame-functions 'stamp/set-frame-config)
   ;; Load theme on app creation
   (stamp/set-ui))
+
 
 (if (boundp 'darkokai)
     (custom-theme-set-faces
@@ -358,6 +373,11 @@
      '(show-paren-match ((t (:background "#707070"))))
      ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; General Define Key ;;
+;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package general)
 
 ;;;;;;;;;;;;;;;
 ;; UI & Help ;;
@@ -1498,13 +1518,6 @@ current buffer."
       (modify-syntax-entry ?- "w")
       (nlinum-mode 1)
       (rainbow-mode +1))))
-
-(use-package syslog-mode
-  :defer t
-  :config
-  (add-hook 'syslog-mode-hook
-    (lambda ()
-      (toggle-truncate-lines +1))))
 
 (use-package css-mode
   :mode "\\.css$"
