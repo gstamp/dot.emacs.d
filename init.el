@@ -146,7 +146,11 @@
 
 (use-package lispy
   :config
-  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1))))
+  (add-hook 'emacs-lisp-mode-hook (lambda ()
+                                    (lispy-mode 1)
+                                    ))
+  ;; Undefine M-m
+  (define-key lispy-mode-map "\M-m" nil))
 
 
 ;;;;;;;;;;;;;
