@@ -1077,6 +1077,7 @@ the right."
 
 (use-package org
   :defer t
+  :bind (("C-C c" . org-capture))
 
   :commands (org-store-link)
   :config
@@ -1087,10 +1088,6 @@ the right."
   (add-hook 'org-shiftleft-final-hook 'windmove-left)
   (add-hook 'org-shiftdown-final-hook 'windmove-down)
   (add-hook 'org-shiftright-final-hook 'windmove-right)
-
-  ;; Define org-capture key - make sure org-default-notes-file is
-  ;; defined for local machine
-  (define-key global-map (kbd "C-c c") 'org-capture)
 
   ;; Bind agenda
   (global-set-key [f9] 'org-agenda)
