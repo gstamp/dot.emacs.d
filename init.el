@@ -1857,6 +1857,12 @@ current buffer."
   ;;   :config
   ;;   (add-hook 'elixir-mode-hook 'flycheck-mode))
 
+  (require 'mix-format)
+  (setq mixfmt-mix "/usr/local/bin/mix")
+  (setq mixfmt-elixir "/usr/local/bin/elixir")
+  (add-hook 'elixir-mode-hook
+    (lambda () (add-hook 'before-save-hook 'mix-format-before-save)))
+
   (use-package alchemist
     :diminish (alchemist-mode . " alc")
     :diminish (alchemist-phoenix-mode . " alc-ph")
