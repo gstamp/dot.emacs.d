@@ -3164,7 +3164,8 @@ _SPC_ cancel     _o_nly this       _d_elete
   "ws"  'ace-swap-window
 
   "p" '(:ignore t :which-key "project")
-  "ps" '(projectile-ripgrep :which-key "search project")
+  "ps" '(counsel-projectile-rg :which-key "search project (interative)")
+  "pS" '(projectile-ag :which-key "search project (new window)")
   "pp" '(counsel-projectile :which-key "switch project")
   "pb" '(counsel-projectile-switch-to-buffer :which-key "buffer in project")
   "pd" '(counsel-projectile-find-dir :which-key "find dir")
