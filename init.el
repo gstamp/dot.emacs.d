@@ -1203,7 +1203,8 @@ the right."
                                            enh-ruby-mode-hook
                                            json-mode-hook
                                            verilog-mode-hook
-                                           cperl-mode-hook)
+                                           cperl-mode-hook
+                                           elixir-mode)
       "List of hooks of major modes in which hs-minor-mode should be enabled.")
 
     (define-minor-mode stamp/hideshow-mode
@@ -1241,12 +1242,21 @@ current buffer."
 
 
 (eval-after-load "hideshow"
-  '(add-to-list 'hs-special-modes-alist
-     `(enh-ruby-mode
-        ,"\\<\\(def\\|class\\|module\\|do\\)\\>"
-        ,"\\<end\\>"
-        ,(rx (or "#" "=begin"))                        ; Comment start
-        enh-ruby-forward-sexp nil)))
+  (progn
+    '(add-to-list 'hs-special-modes-alist
+       `(enh-ruby-mode
+          ,"\\<\\(def\\|class\\|module\\|do\\)\\>"
+          ,"\\<end\\>"
+          ,(rx (or "#" "=begin"))       ; Comment start
+          enh-ruby-forward-sexp nil)
+       )
+
+    '(add-to-list 'hs-special-modes-alist
+       `(elixir-mode
+          , "\\<\\(do\\|fn\\)"
+          , "\\<end\\>"
+          ,(rx (or "#"))                ; Comment start
+          forward-sexp nil))))
 
 (use-package hideshowvis
   :commands (hideshowvis-enable)
