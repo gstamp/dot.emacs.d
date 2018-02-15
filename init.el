@@ -1089,6 +1089,8 @@ the right."
   (add-hook 'org-shiftdown-final-hook 'windmove-down)
   (add-hook 'org-shiftright-final-hook 'windmove-right)
 
+  ;; TODO: Figure out how to enable org-mac-link
+
   ;; Bind agenda
   (global-set-key [f9] 'org-agenda)
 
@@ -1106,11 +1108,9 @@ the right."
   (use-package ox-pandoc
     :config
     (setq org-pandoc-options-for-markdown '((atx-headers . t))
-          org-pandoc-options-for-markdown_mmd '((atx-headers . t))
-          org-pandoc-options-for-markdown_github '((atx-headers . t))))
+      org-pandoc-options-for-markdown_mmd '((atx-headers . t))
+      org-pandoc-options-for-markdown_github '((atx-headers . t))))
 
-  (use-package org-mac-link
-    :commands org-mac-grab-link)
 
   (use-package org-bullets)
 
