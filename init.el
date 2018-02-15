@@ -1863,8 +1863,19 @@ current buffer."
   (require 'mix-format)
   (setq mixfmt-mix "/usr/local/bin/mix")
   (setq mixfmt-elixir "/usr/local/bin/elixir")
+
+  (defun mix-format-and-save (&optional arg)
+    (interactive "p")
+
+    (if (buffer-modified-p)
+      (save-buffer)
+      (progn
+        (if (eq major-mode 'elixir-mode)
+          (mix-format))
+        (call-interactively 'save-buffer))))
+
   (add-hook 'elixir-mode-hook
-    (lambda () (add-hook 'before-save-hook 'mix-format-before-save)))
+    (lambda () (general-define-key "C-x C-s" 'mix-format-and-save)))
 
   (use-package alchemist
     :diminish (alchemist-mode . " alc")
