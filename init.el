@@ -1195,13 +1195,6 @@ the right."
 
 (require 'hideshow)
 
-(add-hook 'enh-ruby-mode-hook
-  (lambda ()
-    (hs-minor-mode)
-    (hideshowvis-enable)
-    (hs-org/minor-mode)
-    ))
-
 (use-package hideshow
   :commands (stamp/hideshow-mode)
   :config
