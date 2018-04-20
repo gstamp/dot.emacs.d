@@ -3089,6 +3089,7 @@ Repeated invocations toggle between the two most recently open buffers."
        ("*rspec-compilation*"         :select nil :size 0.3 :align 'below                               )
        ("*alchemist help*"            :select nil :size 0.3 :align 'below                               )
        ("*alchemist test report*"     :select nil :size 0.3 :align 'below                               )
+       ("*Flycheck errors*"           :select nil :size 0.3 :align 'below                               )
        (compilation-mode              :select nil                                                       )
        (" *undo-tree*"                :size 0.25 :align right                                           )
        (" *eshell*"                    :select t                          :other t                      )
