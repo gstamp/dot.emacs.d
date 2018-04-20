@@ -1435,11 +1435,14 @@ current buffer."
 
 (use-package rjsx-mode
   :mode  (("\\.jsx?$" . rjsx-mode)
-          ("components\\/.*\\.js\\'" . rjsx-mode))
+           ("components\\/.*\\.js\\'" . rjsx-mode))
   :config
   ;; Clear out tag helper
   (define-key rjsx-mode-map "<" nil)
-  (add-hook 'rjsx-mode-hook 'flycheck-mode))
+  (add-hook 'rjsx-mode-hook 'flycheck-mode)
+
+  (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+  )
 
 (use-package json-mode
   :mode "\\.json$"
