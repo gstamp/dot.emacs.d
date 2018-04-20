@@ -174,8 +174,12 @@
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 
-;; No blinking cursor
-(blink-cursor-mode -1)
+;; Cursor blinking options
+(setq cursor-type 'bar)
+(setq blink-cursor-blinks 20)
+(setq blink-cursor-interval 0.3)
+(blink-cursor-mode 1)
+(set-cursor-color "yellow")
 
 ;; No startup screen
 (setq inhibit-startup-screen t)
@@ -188,9 +192,6 @@
 
 ;; No bell thanks
 (setq ring-bell-function 'ignore)
-
-;; Nice easy to find cursor
-(set-cursor-color "yellow")
 
 ;; Save clipboard contents into kill-ring before replacing them
 (setq save-interprogram-paste-before-kill t)
