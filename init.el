@@ -710,7 +710,7 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
 (use-package company
   :diminish (company-mode . " ⓒ")
   :config
-  (setq company-idle-delay 0.2)
+  (setq company-idle-delay 0.5)
   (setq company-minimum-prefix-length 3)
   (setq company-dabbrev-ignore-case nil)
   (setq company-dabbrev-downcase nil)
