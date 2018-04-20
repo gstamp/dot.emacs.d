@@ -397,9 +397,6 @@
 (use-package ivy
   :diminish (ivy-mode . "")
   :init
-  (use-package ivy-hydra
-    :defer 3)
-
   (setq ivy-initial-inputs-alist '((org-refile . "^")
                                     (org-agenda-refile . "^")
                                     (org-capture-refile . "^")
@@ -412,8 +409,9 @@
   (setq ivy-height 20)
   (setq ivy-fixed-height-minibuffer t)
   (setq ivy-use-virtual-buffers t)
-  ;; Don't count candidates
-  (setq ivy-count-format "")
+  (setq ivy-virtual-abbreviate 'full)   ; Show the full virtual file paths
+  (setq ivy-extra-directories nil)      ; don't show . and ..
+  (setq ivy-count-format "")            ;; Don't count candidates
   (setq ivy-re-builders-alist
     '((swiper . ivy--regex-plus)
        (t . ivy--regex-fuzzy)))
@@ -421,7 +419,8 @@
   (general-define-key :keymaps '(ivy-occur-mode-map ivy-occur-grep-mode-map)
     :states '(emacs)
     "C-c C-0" 'ivy-occur-revert-buffer)
-  (general-define-key "C-x C-b" 'ivy-switch-buffer
+  (general-define-key
+    "C-x C-b" 'ivy-switch-buffer
     "C-c C-r" 'ivy-resume
     )
   (ivy-mode 1)
@@ -430,6 +429,75 @@
   (add-hook 'ivy-occur-grep-mode 'wgrep-ag-setup)
   (bind-keys :map ivy-occur-grep-mode-map
     ("e" . wgrep-change-to-wgrep-mode))
+
+  ;; https://github.com/abo-abo/swiper/blob/master/ivy-hydra.el
+  (use-package ivy-hydra
+    :ensure t
+    :config
+    (progn
+      ;; Re-define the `hydra-ivy' defined in `ivy-hydra' package.
+      (defhydra hydra-ivy (:hint nil
+                            :color pink)
+        "
+^ _,_ ^      _f_ollow      occ_u_r      _g_o          ^^_c_alling: %-7s(if ivy-calling \"on\" \"off\")      _w_(prev)/_s_(next)/_a_(read) action: %-14s(ivy-action-name)
+_p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--matcher-desc)^^^^^^^^^^^^      _C_ase-fold: %-10`ivy-case-fold-search
+^ _._ ^      _D_o it!      ^^           _q_uit        _<_/_>_ shrink/grow^^^^^^^^^^^^^^^^^^^^^^^^^^^^       _t_runcate: %-11`truncate-lines
+"
+        ;; Arrows
+        ("," ivy-beginning-of-buffer)      ;Default h
+        ("p" ivy-previous-line)            ;Default j
+        ("n" ivy-next-line)                ;Default k
+        ("." ivy-end-of-buffer)            ;Default l
+        ;; Quit ivy
+        ("q" keyboard-escape-quit :exit t) ;Default o
+        ("C-g" keyboard-escape-quit :exit t)
+        ;; Quit hydra
+        ("i" nil)
+        ("C-o" nil)
+        ;; actions
+        ("f" ivy-alt-done :exit nil)
+        ;; Exchange the default bindings for C-j and C-m
+        ("C-m" ivy-alt-done :exit nil)  ;RET, default C-j
+        ("C-j" ivy-done :exit t)        ;Default C-m
+        ("d" ivy-done :exit t)
+        ("D" ivy-immediate-done :exit t)
+        ("g" ivy-call)
+        ("c" ivy-toggle-calling)
+        ("m" ivy-rotate-preferred-builders)
+        (">" ivy-minibuffer-grow)
+        ("<" ivy-minibuffer-shrink)
+        ("w" ivy-prev-action)
+        ("s" ivy-next-action)
+        ("a" ivy-read-action)
+        ("t" (setq truncate-lines (not truncate-lines)))
+        ("C" ivy-toggle-case-fold)
+        ("u" ivy-occur :exit t)
+        ("?" (ivy-exit-with-action      ;Default D
+               (lambda (_) (find-function #'hydra-ivy/body))) "Definition of this hydra" :exit t))
+
+      (bind-keys
+        :map ivy-minibuffer-map
+        ("C-t" . ivy-rotate-preferred-builders)
+        ("C-o" . hydra-ivy/body)
+        ("M-o" . ivy-dispatching-done-hydra))))
+
+  (bind-keys
+    :map ivy-minibuffer-map
+    ;; Exchange the default bindings for C-j and C-m
+    ("C-m" . ivy-alt-done)              ;RET, default C-j
+    ("C-j" . ivy-done)                  ;Default C-m
+    ("C-S-m" . ivy-immediate-done))
+
+  (bind-keys
+    :map ivy-occur-mode-map
+    ("n" . ivy-occur-next-line)
+    ("p" . ivy-occur-previous-line)
+    ("b" . backward-char)
+    ("f" . forward-char)
+    ("v" . ivy-occur-press)            ;Default f
+    ("RET" . ivy-occur-press))
+
+  
   )
 
 (use-package counsel
