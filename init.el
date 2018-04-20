@@ -3275,13 +3275,14 @@ _SPC_ cancel     _o_nly this       _d_elete
   "ws"  'ace-swap-window
 
   "p" '(:ignore t :which-key "project")
-  "ps" '(counsel-projectile-rg :which-key "search project (interative)")
   "pS" '(projectile-ag :which-key "search project (new window)")
-  "pp" '(counsel-projectile :which-key "switch project")
   "pb" '(counsel-projectile-switch-to-buffer :which-key "buffer in project")
   "pd" '(counsel-projectile-find-dir :which-key "find dir")
   "pf" '(counsel-projectile-find-file :which-key "find file")
+  "pj" '(projectile-toggle-between-implementation-and-test :which-key "jump between src/test")
   "pm" '(:keymap projectile-command-map :package projectile :which-key "all projectile")
+  "pp" '(counsel-projectile :which-key "switch project")
+  "ps" '(counsel-projectile-ag :which-key "search project (interative)")
   "pt" '(stamp/test-project :which-key "test project")
 
   "t" '(:ignore t :which-key "text")
