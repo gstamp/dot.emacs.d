@@ -1006,7 +1006,8 @@ the right."
 (use-package git-gutter-fringe
   :diminish git-gutter-mode
   :config
-  (setq git-gutter-fr:side 'right-fringe)
+  (setq git-gutter-fr:side 'left-fringe)
+
   ;; custom graphics that works nice with half-width fringes
   (fringe-helper-define 'git-gutter-fr:added nil
     "..X...."
@@ -1025,7 +1026,7 @@ the right."
   (fringe-helper-define 'git-gutter-fr:modified nil
     "..X...."
     ".XXX..."
-    "XX.XX.."
+    "XXXXX.."
     ".XXX..."
     "..X...."
     )
