@@ -1271,6 +1271,7 @@ the right."
   (progn
     (defconst stamp/hs-minor-mode-hooks '(emacs-lisp-mode-hook
                                            enh-ruby-mode-hook
+                                           ruby-mode-hook
                                            json-mode-hook
                                            verilog-mode-hook
                                            cperl-mode-hook
@@ -1319,6 +1320,14 @@ current buffer."
           ,"\\<end\\>"
           ,(rx (or "#" "=begin"))       ; Comment start
           enh-ruby-forward-sexp nil)
+       )
+
+    '(add-to-list 'hs-special-modes-alist
+       `(ruby-mode
+          ,"\\<\\(def\\|class\\|module\\|do\\)\\>"
+          ,"\\<end\\>"
+          ,(rx (or "#" "=begin"))       ; Comment start
+          ruby-forward-sexp nil)
        )
 
     '(add-to-list 'hs-special-modes-alist
@@ -1886,7 +1895,7 @@ current buffer."
                                                       rspec-mode      python-mode
                                                       c-mode          c++-mode
                                                       objc-mode       latex-mode
-                                                      plain-tex-mode))
+                                                      plain-tex-mode  ruby-mode))
                  (let ((mark-even-if-inactive transient-mark-mode))
                    (indent-region (region-beginning) (region-end) nil))))))
 
@@ -2428,7 +2437,7 @@ buffer is not visiting a file, prompt for a file name."
   :diminish (ruby-end-mode . " ȅ")
   :commands ruby-end-mode)
 
-(use-package enh-ruby-mode
+(use-package ruby-mode
   :mode (("\\.rb$"        . enh-ruby-mode)
           ("\\.ru$"        . enh-ruby-mode)
           ("\\.rake$"      . enh-ruby-mode)
@@ -2440,15 +2449,18 @@ buffer is not visiting a file, prompt for a file name."
           ("/Vagrantfile$" . enh-ruby-mode)
           ("/Rakefile$"    . enh-ruby-mode))
   :interpreter "ruby"
-  :bind (:map enh-ruby-mode-map
+  :bind (:map ruby-mode-map
           ("M-." . projectile-find-tag))
 
   :config
 
+  ;; Editing my code for me is bad.
+  (setq ruby-insert-encoding-magic-comment nil)
+
   (use-package inf-ruby
     :config
     (setq inf-ruby-default-implementation "pry")
-    (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode))
+    (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode))
 
   (use-package rspec-mode
     :config
@@ -2468,7 +2480,7 @@ buffer is not visiting a file, prompt for a file name."
 
   (defun stamp/toggle-ruby-block-style ()
     (interactive)
-    (enh-ruby-beginning-of-block)
+    (ruby-beginning-of-block)
     (if (looking-at-p "{")
       (let ((beg (point)))
         (delete-char 1)
@@ -2486,17 +2498,28 @@ buffer is not visiting a file, prompt for a file name."
         ;; Join lines if block is 1 line of code long
         (save-excursion
           (let ((end (line-end-position)))
-            (enh-ruby-beginning-of-block)
+            (ruby-beginning-of-block)
             (if (= 2 (- (line-number-at-pos end) (line-number-at-pos)))
               (evil-join (point) end)))
           (kill-line)
           (insert " }")
-          (enh-ruby-beginning-of-block)
+          (ruby-beginning-of-block)
           (delete-char 2)
           (insert "{" )))))
 
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
+
+  (add-hook 'ruby-mode-hook
+    (lambda ()
+      ;; turn off the annoying input echo in irb
+      (setq comint-process-echoes t)
+
+      (setq ruby-indent-level 2)
+      (setq ruby-deep-indent-paren nil)
+
+      ;; Flycheck on
+      (flycheck-mode)))
 
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
