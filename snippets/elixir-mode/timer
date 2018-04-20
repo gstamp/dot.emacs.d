@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: timer
+# key: timer
+# --
+{time, ${1:value}} = :timer.tc(fn ->
+
+end, [])
+if time > 1000, do: IO.puts("${2:time} = #{inspect (time / 1000)}")
+value
