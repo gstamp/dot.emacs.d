@@ -2471,11 +2471,12 @@ buffer is not visiting a file, prompt for a file name."
 
   :config
 
-  ;; Editing my code for me is bad.
   ;; point to script that bundle exec's by default
   (setq flycheck-ruby-rubocop-executable "~/bin/rubocop")
 
+  ;; editing my code for me is bad.
   (setq ruby-insert-encoding-magic-comment nil)
+  (setq enh-ruby-insert-encoding-magic-comment nil)
 
   (use-package inf-ruby
     :config
