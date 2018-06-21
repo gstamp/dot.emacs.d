@@ -2250,6 +2250,14 @@ current buffer."
 (use-package reveal-in-osx-finder
   :commands reveal-in-osx-in-finder)
 
+(defun stamp/expand-lines ()
+    (interactive)
+    (let ((hippie-expand-try-functions-list
+           '(try-expand-line-all-buffers)))
+      (call-interactively 'hippie-expand)))
+
+(global-set-key (kbd "C-x C-l") 'stamp/expand-lines) ; overloads downcase-region which I neve use anyway
+
 (defun stamp/toggle-quotes ()
   (interactive)
   (save-excursion
