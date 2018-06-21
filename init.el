@@ -404,7 +404,7 @@
                                     (woman . "^")))
 
   (setq ivy-height 20)
-  (setq ivy-fixed-height-minibuffer t)
+  (setq ivy-fixed-height-minibuffer nil)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-virtual-abbreviate 'full)   ; Show the full virtual file paths
   (setq ivy-extra-directories nil)      ; don't show . and ..
