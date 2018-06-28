@@ -914,14 +914,9 @@ the right."
 ;; Prog mode ;;
 ;;;;;;;;;;;;;;;
 
-(use-package nlinum
-  :init
-  (setq nlinum-format "%4d ")
-
-  ;; Line numbers for coding please
-  (add-hook 'prog-mode-hook
+(add-hook 'prog-mode-hook
     (lambda ()
-      (nlinum-mode 1))))
+      (display-line-numbers-mode 1)))
 
 (use-package idle-highlight-mode
   :init
