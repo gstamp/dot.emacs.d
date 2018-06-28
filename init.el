@@ -1883,7 +1883,7 @@ current buffer."
   :bind
   (("C->" . mc/mark-next-like-this)
     ("C-<" . mc/mark-previous-like-this)
-    ("C-c C-<" . mc/mark-all-like-this-dwim)
+    ("C-x C-m" . mc/mark-all-like-this-dwim)
     ))
 
 (use-package phi-search
