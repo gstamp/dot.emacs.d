@@ -2477,7 +2477,8 @@ buffer is not visiting a file, prompt for a file name."
 
   ;; editing my code for me is bad.
   (setq ruby-insert-encoding-magic-comment nil)
-  (setq enh-ruby-insert-encoding-magic-comment nil)
+  (setq enh-ruby-add-encoding-comment-on-save nil)
+  (setq enh-ruby-use-encoding-map nil)
 
   (use-package inf-ruby
     :config
