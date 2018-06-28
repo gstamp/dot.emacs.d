@@ -44,6 +44,9 @@
 ;; Give me an imenu of packages in use
 (setq use-package-enable-imenu-support t)
 
+;; Gather stats during load. M-x use-package-report to see details
+(setq use-package-compute-statistics nil)
+
 (eval-when-compile
   (require 'use-package))
 
