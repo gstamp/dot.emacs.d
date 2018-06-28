@@ -2671,13 +2671,13 @@ buffer is not visiting a file, prompt for a file name."
 
 (use-package spaceline
   :init
-  (progn
-    (require 'spaceline-config)
-    (setq powerline-default-separator 'bar)
-    (setq spaceline-minor-modes-separator "⋅")
-    (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-    (spaceline-spacemacs-theme)
-    (spaceline-info-mode)))
+  (require 'spaceline-config)
+  (setq powerline-default-separator 'bar)
+  (setq powerline-default-separator 'bar)
+  (setq spaceline-minor-modes-separator "⋅")
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (spaceline-spacemacs-theme)
+  (spaceline-info-mode))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;
