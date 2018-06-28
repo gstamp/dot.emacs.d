@@ -9,6 +9,20 @@
 ;; Use Package ;;
 ;;;;;;;;;;;;;;;;;
 
+;; Use package cheat sheet because I'm always forgetting them:
+;; :init execute code before a package is loaded
+;; :config can be used to execute code after a package is loaded
+;; :bind ("C-." . ace-jump-mode) binds and defers load
+;; :bind-keymap ("C-c p" . projectile-command-map) bind to keymap
+;; :commands creates autoloads for those commands and defers loading of the module until they are used
+;; :mode & :interpreter deferred binding within the auto-mode-alist and interpreter-mode-alist
+;; :hook prog-mode  magically add hook for given mode
+;; :if only execute on condition
+;; :disabled turn off declaration
+;; :diminish abbrev-mode  don't display mode in modeline
+;; :ensure-system-package ensure system binaries exist alongside your package declarations
+
+
 (require 'package)
 (setq package-enable-at-startup nil) ;; Don't load packages on startup
 (setq package-archives '(("marmalade" . "https://marmalade-repo.org/packages/")
