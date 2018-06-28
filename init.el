@@ -952,17 +952,6 @@ the right."
   :config
   (setq magit-completing-read-function 'ivy-completing-read))
 
-;; TODO: These keep prompting for password. See if that can be fixed.
-;; (use-package magithub
-;;   :disabled t
-;;   :after magit
-;;   :config (magithub-feature-autoinject t))
-
-;; (use-package magit-gh-pulls
-;;   :after magit
-;;   :init
-;;   (add-hook 'magit-mode-hook 'turn-on-magit-gh-pulls))
-
 (use-package git-link
   :commands (git-link git-link-commit github-pr)
   :config
