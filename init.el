@@ -321,9 +321,9 @@
 ;; anzu.el provides a minor mode which displays current match and
 ;; total matches information in the mode-line in various search modes.
 (use-package anzu
-             :diminish anzu-mode
-             :defer 3
-             :init (global-anzu-mode +1))
+  :diminish anzu-mode
+  :defer 3
+  :init (global-anzu-mode +1))
 
 ;; Disable themes before loading them (in daemon mode esp.)
 (defadvice load-theme (before theme-dont-propagate activate)
