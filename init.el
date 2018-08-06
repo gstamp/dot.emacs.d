@@ -68,6 +68,8 @@
 
 (require 'cl) ;; common lisp functions
 
+(diminish 'hi-lock-mode "")
+
 ;; UTF-8 Thanks
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -162,6 +164,8 @@
 ;;;;;;;;;;;
 
 (use-package lispy
+  :diminish (lispy-mode . " λ")
+
   :config
   (add-hook 'emacs-lisp-mode-hook (lambda ()
                                     (lispy-mode 1)
@@ -1870,7 +1874,7 @@ current buffer."
   (add-to-list 'imenu-generic-expression '("Sections" "^;; \\(.+\\) ;;$" 1) t))
 (add-hook 'emacs-lisp-mode-hook 'imenu-elisp-sections)
 
-
+(diminish 'eldoc-mode " ф")
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Multiple cursors ;;
@@ -2452,7 +2456,7 @@ buffer is not visiting a file, prompt for a file name."
 ;;;;;;;;;;
 
 (use-package ruby-end
-  :diminish (ruby-end-mode . " ȅ")
+  :diminish (ruby-end-mode . " ☡")
   :commands ruby-end-mode)
 
 (use-package ruby-mode
@@ -2695,10 +2699,9 @@ buffer is not visiting a file, prompt for a file name."
 ;; Flycheck ;;
 ;;;;;;;;;;;;;;
 
-
 (use-package flycheck
-  :diminish (flycheck-mode . " ⓢ")
   :defer 3
+  :diminish (flycheck-mode . " ⓢ")
   :defines stamp/toggle-flycheck-error-list
   :commands
   (flycheck-mode
