@@ -1163,22 +1163,15 @@ the right."
 
 (use-package org
   :defer t
-  :bind (("C-C c" . org-capture))
+  :bind (("C-C c" . org-capture)
+          ("<f9>" . org-agenda)
+          )
 
   :commands (org-store-link)
-  :config
+  :init
   ;; Make windmove work in org-mode
   (setq org-replace-disputed-keys t)
   (setq org-return-follows-link t)
-  (add-hook 'org-shiftup-final-hook 'windmove-up)
-  (add-hook 'org-shiftleft-final-hook 'windmove-left)
-  (add-hook 'org-shiftdown-final-hook 'windmove-down)
-  (add-hook 'org-shiftright-final-hook 'windmove-right)
-
-  ;; TODO: Figure out how to enable org-mac-link
-
-  ;; Bind agenda
-  (global-set-key [f9] 'org-agenda)
 
   ;; Show indents
   (setq org-startup-indented t)
@@ -1191,41 +1184,13 @@ the right."
   ;; Prevent demoting heading also shifting text inside sections
   (setq org-adapt-indentation nil)
 
-  (use-package ox-pandoc
-    :config
-    (setq org-pandoc-options-for-markdown '((atx-headers . t))
-      org-pandoc-options-for-markdown_mmd '((atx-headers . t))
-      org-pandoc-options-for-markdown_github '((atx-headers . t))))
-
-
-  (use-package org-bullets)
-
   ;; Show raw link text
   (setq org-descriptive-links t)
   ;; Start up fully open
   (setq org-startup-folded nil)
 
-  (defun org-summary-todo (n-done n-not-done)
-    "Switch entry to DONE when all subentries are done, to TODO otherwise."
-    (let (org-log-done org-log-states)   ; turn off logging
-      (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
-
-  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-
   ;; Allow bind in files to enable export overrides
   (setq org-export-allow-bind-keywords t)
-  (defun stamp/html-filter-remove-src-blocks (text backend info)
-    "Remove source blocks from html export."
-    (when (org-export-derived-backend-p backend 'html) ""))
-
-  ;; Code blocks
-  (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((emacs-lisp . t)
-       (js . t)
-       (ruby . t)
-       (dot . t)
-       (shell . t)))
 
   ;; Valid task states in org mode
   (setq org-todo-keywords
@@ -1240,6 +1205,50 @@ the right."
     org-edit-src-content-indentation 0
     org-confirm-babel-evaluate nil)
 
+  ;; No auto indent please
+  (setq org-export-html-postamble nil)
+
+  ;; Don't expand links by default
+  (setq org-descriptive-links t)
+
+  :config
+  (add-hook 'org-shiftup-final-hook 'windmove-up)
+  (add-hook 'org-shiftleft-final-hook 'windmove-left)
+  (add-hook 'org-shiftdown-final-hook 'windmove-down)
+  (add-hook 'org-shiftright-final-hook 'windmove-right)
+
+  ;; TODO: Figure out how to enable org-mac-link
+
+  (use-package ox-pandoc
+    :init
+    (setq org-pandoc-options-for-markdown '((atx-headers . t))
+      org-pandoc-options-for-markdown_mmd '((atx-headers . t))
+      org-pandoc-options-for-markdown_github '((atx-headers . t))))
+
+
+  (use-package org-bullets)
+
+  (defun org-summary-todo (n-done n-not-done)
+    "Switch entry to DONE when all subentries are done, to TODO otherwise."
+    (let (org-log-done org-log-states)  ; turn off logging
+      (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+
+  (defun stamp/html-filter-remove-src-blocks (text backend info)
+    "Remove source blocks from html export."
+    (when (org-export-derived-backend-p backend 'html) ""))
+
+  ;; Code blocks
+  (org-babel-do-load-languages
+    'org-babel-load-languages
+    '((emacs-lisp . t)
+       (js . t)
+       (ruby . t)
+       (dot . t)
+       (shell . t)))
+
+
   (require 'org-crypt)
   ;; Automatically encrypt entries tagged `crypt` on save.
   ;; (org-crypt-use-before-save-magic)
@@ -1250,12 +1259,6 @@ the right."
 
   (add-hook 'org-mode-hook
     (lambda ()
-      ;; No auto indent please
-      (setq org-export-html-postamble nil)
-
-      ;; Don't expand links by default
-      (setq org-descriptive-links t)
-
       (diminish 'org-indent-mode)
 
       ;; Bullets
