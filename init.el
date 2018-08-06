@@ -21,6 +21,7 @@
 ;; :disabled turn off declaration
 ;; :diminish abbrev-mode  don't display mode in modeline
 ;; :ensure-system-package ensure system binaries exist alongside your package declarations
+;; :defer defer loading, can accept an integer which waits for n seconds
 
 
 (require 'package)
