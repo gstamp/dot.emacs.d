@@ -2717,6 +2717,10 @@ buffer is not visiting a file, prompt for a file name."
     flycheck-select-checker
     flycheck-set-checker-executable
     flycheck-verify-setup)
+  :bind
+  (("C-c C-t" . stamp/toggle-flycheck-error-list))
+  :init
+  (setq flycheck-display-errors-delay 0.5)
   :config
   (progn
     (when (fboundp 'define-fringe-bitmap)
@@ -2776,15 +2780,18 @@ If the error list is visible, hide it.  Otherwise, show it."
         (quit-window nil window)
         (flycheck-list-errors)))
 
-    (define-key flycheck-mode-map (kbd "C-c C-t") 'stamp/toggle-flycheck-error-list)
-
     ;; Beware that moving this window with a window manager can mess with tooltips
-    (use-package flycheck-pos-tip
-      :init
-      (with-eval-after-load 'flycheck
-        (flycheck-pos-tip-mode)))
+    ;; (use-package flycheck-pos-tip
+    ;;   :init
+    ;;   (with-eval-after-load 'flycheck
+    ;;     (flycheck-pos-tip-mode)))
 
-    (setq flycheck-display-errors-delay 0.5)))
+    (use-package flycheck-posframe
+      :ensure t
+      :after flycheck
+      :config (add-hook 'flycheck-mode-hook #'flycheck-posframe-mode))
+
+    (global-flycheck-mode)))
 
 (defhydra hydra-flycheck
   (:pre (progn (setq hydra-lv t) (flycheck-list-errors))
