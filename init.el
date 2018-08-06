@@ -1051,15 +1051,12 @@ the right."
   (global-git-gutter-mode t))
 
 (use-package ediff
+  :hook winner-undo
   :init
-  (progn
-    (setq-default
-      ediff-window-setup-function 'ediff-setup-windows-plain
-      ediff-split-window-function 'split-window-horizontally
-      ediff-merge-split-window-function 'split-window-horizontally)
-
-    ;; Restore window layout when done
-    (add-hook 'ediff-quit-hook #'winner-undo)))
+  (setq-default
+    ediff-window-setup-function 'ediff-setup-windows-plain
+    ediff-split-window-function 'split-window-horizontally
+    ediff-merge-split-window-function 'split-window-horizontally))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Window Handling ;;
