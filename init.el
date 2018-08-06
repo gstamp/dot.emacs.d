@@ -3187,7 +3187,6 @@ Repeated invocations toggle between the two most recently open buffers."
     (set-char-table-range composition-function-table (car char-regexp)
       `([,(cdr char-regexp) 0 font-shape-gstring]))))
 
-(mac-auto-operator-composition-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Leader bindings ;;
