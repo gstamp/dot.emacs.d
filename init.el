@@ -2543,6 +2543,7 @@ buffer is not visiting a file, prompt for a file name."
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
 
+  ;; this probably doesn't belong here
   (add-hook 'ruby-mode-hook
     (lambda ()
       ;; turn off the annoying input echo in irb
