@@ -953,6 +953,11 @@ the right."
 
 (use-package magit
   :commands magit-status
+  :init
+  (use-package magit-todos
+    :config
+    (magit-todos-mode))
+
   :config
   (setq magit-completing-read-function 'ivy-completing-read))
 
