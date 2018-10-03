@@ -3258,7 +3258,7 @@ _SPC_ cancel     _o_nly this       _d_elete
   ("SPC" nil nil)
   ("<return>" nil nil))
 
-(defhydra hydra-change-case ()
+(defhydra hydra-change-symbol ()
   "toggle word case"
   ("c" capitalize-word "Capitalize")
   ("u" upcase-word "UPPER")
@@ -3287,6 +3287,7 @@ _SPC_ cancel     _o_nly this       _d_elete
   "br" 'rubocop-autocorrect-current-file
   "bs" 'stamp/switch-to-scratch-buffer
   "bt" '(stamp/test-file :which-key "test file")
+  "ty" '(stamp/copy-buffer-filename :which-key "yank buffer filename to clipboard")
   "b'" '(stamp/toggle-quotes :which-key "toggle quotes")
 
   "l" '(:ignore t :which-key "language")
@@ -3312,7 +3313,7 @@ _SPC_ cancel     _o_nly this       _d_elete
   "pt" '(stamp/test-project :which-key "test project")
 
   "t" '(:ignore t :which-key "text")
-  "tc" '(hydra-change-case/body :which-key "case change")
+  "tc" '(hydra-change-symbol/body :which-key "case/inflection change")
   "ts" '(hydra-surround/body :which-key "corral surround")
 
   "v" '(:ignore t :which-key "version control")
