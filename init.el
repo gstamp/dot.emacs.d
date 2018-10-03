@@ -2022,26 +2022,20 @@ current buffer."
     )
   :bind
   (:map global-map
-    ;;([f8]        . treemacs-toggle)
+    ([f8]        . treemacs)
     ;;("M-0"       . treemacs-select-window)
     ;;("C-c 1"     . treemacs-delete-other-windows)
     ;;("M-m ft"    . treemacs-toggle)
     ;;("M-m fT"    . treemacs)
     ;;("M-m f C-t" . treemacs-find-file)
     ))
+
 (use-package treemacs-projectile
   :defer t
   :ensure t
+  :commands (teremacs-projectile treemacs-projectile-toggle)
   :config
-  (setq treemacs-header-function #'treemacs-projectile-create-header)
-  :bind
-  (:map global-map
-    ([f8] . treemacs-projectile-toggle)
-    ([shift f8] . treemacs-projectile))
-  ;; :bind (:map global-map
-  ;;         ("M-m fP" . treemacs-projectile)
-  ;;         ("M-m fp" . treemacs-projectile-toggle))
-  )
+  (setq treemacs-header-function #'treemacs-projectile-create-header))
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Other Languages ;;
