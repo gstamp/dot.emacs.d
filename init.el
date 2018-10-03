@@ -2467,8 +2467,8 @@ buffer is not visiting a file, prompt for a file name."
   :diminish (ruby-end-mode . " ☡")
   :commands ruby-end-mode)
 
-(use-package ruby-mode
-  :mode (("\\.rb$"        . enh-ruby-mode)
+(use-package enh-ruby-mode
+  :mode (("\\.rb$"         . enh-ruby-mode)
           ("\\.ru$"        . enh-ruby-mode)
           ("\\.rake$"      . enh-ruby-mode)
           ("\\.gemspec$"   . enh-ruby-mode)
@@ -2544,18 +2544,6 @@ buffer is not visiting a file, prompt for a file name."
 
   ;; We never want to edit Rubinius bytecode
   (add-to-list 'completion-ignored-extensions ".rbc")
-
-  ;; this probably doesn't belong here
-  (add-hook 'ruby-mode-hook
-    (lambda ()
-      ;; turn off the annoying input echo in irb
-      (setq comint-process-echoes t)
-
-      (setq ruby-indent-level 2)
-      (setq ruby-deep-indent-paren nil)
-
-      ;; Flycheck on
-      (flycheck-mode)))
 
   (add-hook 'enh-ruby-mode-hook
     (lambda ()
