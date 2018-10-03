@@ -2378,13 +2378,21 @@ With C-u C-u: insert time"
     (cond ((search-forward "<?xml" nil t) (xml-mode))
       ((search-forward "<html" nil t) (html-mode)))))
 
+(defun stamp/to-clipboard (astring)
+  "Copy a string to clipboard."
+  (progn
+    (with-temp-buffer
+      (insert astring)
+      (clipboard-kill-region (point-min) (point-max)))
+    astring))
+
 (defun stamp/copy-buffer-filename ()
   "Copy filename of buffer into system clipboard."
   (interactive)
   ;; list-buffers-directory is the variable set in dired buffers
   (let ((file-name (or (buffer-file-name) list-buffers-directory)))
     (if file-name
-      (message (simpleclip-set-contents file-name))
+      (message (stamp/to-clipboard file-name))
       (error "Buffer not visiting a file"))))
 
 (defun stamp/indent-buffer ()
