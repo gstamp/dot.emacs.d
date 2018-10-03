@@ -348,15 +348,17 @@
     ;; Highlight the current line
     (global-hl-line-mode +1)
     ;; Load theme
-    ;;(load-theme 'spacemacs-light)
-    ;;(load-theme 'spacemacs-dark)
-    ;;(load-theme 'idea-darkula)
-    ;;(load-theme 'doom-one)
-    ;;(load-theme 'doom-light)
-    ;;(load-theme 'darkokai)
-    ;;(load-theme 'hydandata-light)
-    ;;(load-theme 'pastelmac)
+    ;; (load-theme 'spacemacs-light)
+    ;; (load-theme 'spacemacs-dark)
+    ;; (load-theme 'idea-darkula)
+    ;; (load-theme 'doom-one)
+    ;; (load-theme 'doom-light)
+    ;; (load-theme 'darkokai)
+    ;; (load-theme 'hydandata-light)
+    ;; (load-theme 'pastelmac)
     (load-theme 'base16-bespin)
+    ;; (load-theme 'darkokai)
+    ;; (load-theme 'doom-nord)
     )
 
   (defun stamp/set-terminal-config ()
@@ -1223,8 +1225,9 @@ the right."
       org-pandoc-options-for-markdown_mmd '((atx-headers . t))
       org-pandoc-options-for-markdown_github '((atx-headers . t))))
 
-
   (use-package org-bullets)
+
+  (use-package org-download)
 
   (defun org-summary-todo (n-done n-not-done)
     "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -3176,7 +3179,6 @@ Repeated invocations toggle between the two most recently open buffers."
   (dolist (char-regexp alist)
     (set-char-table-range composition-function-table (car char-regexp)
       `([,(cdr char-regexp) 0 font-shape-gstring]))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Leader bindings ;;
