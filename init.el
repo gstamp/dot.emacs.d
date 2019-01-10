@@ -949,6 +949,7 @@ the right."
 ;;;;;;;;;;;;;;;;;;;
 
 (use-package dash-at-point
+  :if (eq system-type 'darwin)
   :bind (([S-f1] . dash-at-point)))
 
 ;;;;;;;;;;;;;;;;;;;;;
