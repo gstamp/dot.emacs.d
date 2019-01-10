@@ -449,13 +449,6 @@
     )
   (ivy-mode 1)
 
-  (use-package ivy-posframe
-    :init
-    (setq ivy-display-function #'ivy-posframe-display)
-    ;; (setq ivy-display-function #'ivy-posframe-display-at-point)
-    :config
-    (ivy-posframe-enable))
-
   :config
   (add-hook 'ivy-occur-grep-mode 'wgrep-ag-setup)
   (bind-keys :map ivy-occur-grep-mode-map
