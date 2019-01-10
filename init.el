@@ -38,6 +38,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(use-package use-package-ensure-system-package
+  :ensure t)
+
 ;; Debug package loads
 (setq use-package-verbose t)
 (setq use-package-always-ensure t)
