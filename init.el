@@ -544,6 +544,12 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
 ;; Requiring smex keeps our command history
 (use-package smex)
 
+;; Subtle highlighting of matching parens (global-mode)
+(add-hook 'prog-mode-hook (lambda ()
+                            (show-paren-mode +1)
+                            (setq show-paren-style 'parenthesis)))
+
+
 (use-package rg
   :commands (rg rg-project)
   :config
@@ -578,12 +584,6 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
         (setq word (buffer-substring-no-properties beg (point)))))
     (when word
       (swiper word))))
-
-;; Subtle highlighting of matching parens (global-mode)
-(add-hook 'prog-mode-hook (lambda ()
-                            (show-paren-mode +1)
-                            (setq show-paren-style 'parenthesis)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Backups and editing history ;;
