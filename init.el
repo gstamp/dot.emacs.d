@@ -1207,11 +1207,11 @@ the right."
     org-edit-src-content-indentation 0
     org-confirm-babel-evaluate nil)
 
-  ;; No auto indent please
-  (setq org-export-html-postamble nil)
-
   ;; Don't expand links by default
   (setq org-descriptive-links t)
+
+  ;; After evaling org babel redisplay images
+  (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
   :config
   (add-hook 'org-shiftup-final-hook 'windmove-up)
