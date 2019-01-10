@@ -520,8 +520,6 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
     ("f" . forward-char)
     ("v" . ivy-occur-press)            ;Default f
     ("RET" . ivy-occur-press))
-
-  
   )
 
 (use-package counsel
