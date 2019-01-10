@@ -550,7 +550,14 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
                             (setq show-paren-style 'parenthesis)))
 
 
+;;;;;;;;;;;;
+;; Search ;;
+;;;;;;;;;;;;
+
+(use-package deadgrep)
+
 (use-package rg
+  :ensure-system-package (rg . ripgrep)
   :commands (rg rg-project)
   :config
   (setq ag-group-matches nil))
