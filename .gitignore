@@ -32,3 +32,5 @@ network-security.data
 /bookmarks
 /forge-database.sqlite
 /games
+/.org-id-locations
+/.cache/treemacs-persist
