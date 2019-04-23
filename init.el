@@ -2038,7 +2038,6 @@ current buffer."
 
 (use-package comment-dwim-2 :bind ("M-;" . comment-dwim-2))
 
-
 ;;;;;;;;;;;;;;
 ;; Treemacs ;;
 ;;;;;;;;;;;;;;
@@ -2956,6 +2955,7 @@ If the error list is visible, hide it.  Otherwise, show it."
 
 (setq require-final-newline t)
 
+
 ;;;;;;;;;;;;;;;;
 ;; Projectile ;;
 ;;;;;;;;;;;;;;;;
@@ -3117,6 +3117,7 @@ Repeated invocations toggle between the two most recently open buffers."
   :diminish editorconfig-mode
   :config
   (editorconfig-mode 1))
+
 
 ;;;;;;;;;;;;;
 ;; Shackle ;;
