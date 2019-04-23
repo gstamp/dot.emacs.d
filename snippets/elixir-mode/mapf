@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: mapf
+# key: mapf
+# --
+Enum.map(fn $1 -> $0 end)
