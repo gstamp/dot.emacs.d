@@ -292,7 +292,6 @@
 (setq epg-gpg-program "gpg2")
 (setq epa-file-encrypt-to "gstamp@gmail.com")
 
-
 ;;;;;;;;;;;;
 ;; Themes ;;
 ;;;;;;;;;;;;
@@ -309,71 +308,59 @@
 (defadvice load-theme (before theme-dont-propagate activate)
   (mapc #'disable-theme custom-enabled-themes))
 
-;; Set default frame size
-(add-to-list 'default-frame-alist '(height . 60))
-(add-to-list 'default-frame-alist '(width . 110))
+(defun stamp/set-terminal-config ()
+  "Enable my terminal settings"
+  (interactive)
+  (xterm-mouse-mode 1)
+  (menu-bar-mode -1))
 
-(use-package base16-theme
+(defun stamp/set-ui ()
+  (if (display-graphic-p)
+    (stamp/set-gui-config)
+    (stamp/set-terminal-config)))
+
+(defun stamp/set-frame-config (&optional frame)
+  "Establish settings for the current terminal."
+  (with-selected-frame frame
+    (stamp/set-ui)))
+
+(use-package darkokai-theme
   :ensure t
+  :config
+
+  (custom-theme-set-faces
+    'darkokai
+    '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+    '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+    '(erm-syn-errline ((t (:underline (:color "Red" :style wave)))))
+    '(erm-syn-warnline ((t (:underline (:color "Orange" :style wave)))))
+    '(font-lock-comment-face ((t (:slant italic))))
+    '(font-lock-doc-face ((t (:slant italic))))
+    '(idle-highlight ((t (:inherit nil :underline t))))
+    '(org-block ((t (:background "black" :foreground "#6A6D70"))))
+    '(org-block-begin-line ((t (:background "lawn green" :foreground "black" :slant italic))))
+    '(region ((t (:inherit highlight :background "dark salmon"))))
+    '(show-paren-match ((t (:background "#707070"))))
+    )
+
   :init
+
   (defun stamp/set-gui-config ()
     "Enable my GUI settings"
     (interactive)
     (menu-bar-mode +1)
+
     ;; Highlight the current line
-    (global-hl-line-mode +1)
-    ;; Load theme
-    ;; (load-theme 'spacemacs-light)
-    ;; (load-theme 'spacemacs-dark)
-    ;; (load-theme 'idea-darkula)
-    ;; (load-theme 'doom-one)
-    ;; (load-theme 'doom-light)
-    ;; (load-theme 'darkokai)
-    ;; (load-theme 'hydandata-light)
-    ;; (load-theme 'pastelmac)
-    (load-theme 'base16-bespin)
-    ;; (load-theme 'darkokai)
-    ;; (load-theme 'doom-nord)
-    )
+    (global-hl-line-mode nil)
+    (load-theme 'darkokai))
 
-  (defun stamp/set-terminal-config ()
-    "Enable my terminal settings"
-    (interactive)
-    (xterm-mouse-mode 1)
-    (menu-bar-mode -1))
+  ;; Only need to set frame config if we are in daemon mode
+  (if (daemonp)
+    (add-hook 'after-make-frame-functions 'stamp/set-frame-config)
+    ;; Load theme on app creation
+    (stamp/set-ui))
+  )
 
-  (defun stamp/set-ui ()
-    (if (display-graphic-p)
-      (stamp/set-gui-config)
-      (stamp/set-terminal-config)))
-
-  (defun stamp/set-frame-config (&optional frame)
-    "Establish settings for the current terminal."
-    (with-selected-frame frame
-      (stamp/set-ui))))
-
-;; Only need to set frame config if we are in daemon mode
-(if (daemonp)
-  (add-hook 'after-make-frame-functions 'stamp/set-frame-config)
-  ;; Load theme on app creation
-  (stamp/set-ui))
-
-
-(if (boundp 'darkokai)
-    (custom-theme-set-faces
-     'darkokai
-     '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
-     '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
-     '(erm-syn-errline ((t (:underline (:color "Red" :style wave)))))
-     '(erm-syn-warnline ((t (:underline (:color "Orange" :style wave)))))
-     '(font-lock-comment-face ((t (:slant italic))))
-     '(font-lock-doc-face ((t (:slant italic))))
-     '(idle-highlight ((t (:inherit nil :underline t))))
-     '(org-block ((t (:background "black" :foreground "#6A6D70"))))
-     '(org-block-begin-line ((t (:background "lawn green" :foreground "black" :slant italic))))
-     '(region ((t (:inherit highlight :background "dark salmon"))))
-     '(show-paren-match ((t (:background "#707070"))))
-     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General Define Key ;;
