@@ -2005,10 +2005,6 @@ current buffer."
   ;;   :config
   ;;   (add-hook 'elixir-mode-hook 'flycheck-mode))
 
-  (require 'mix-format)
-  (setq mixfmt-mix "/usr/local/bin/mix")
-  (setq mixfmt-elixir "/usr/local/bin/elixir")
-
   (defun mix-format-and-save (&optional arg)
     (interactive "p")
 
