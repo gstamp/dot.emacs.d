@@ -3372,8 +3372,6 @@ _SPC_ cancel     _o_nly this       _d_elete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(message "Enjoy your finely crafted editing experience")
-
 (provide 'init)
 ;;; init.el ends here
 
