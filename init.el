@@ -103,49 +103,24 @@
       user-mail-address "gstamp@gmail.com")
 
 ;; Fix our shell environment on OSX
-(when (eq system-type 'darwin)
-  (use-package exec-path-from-shell
-    :defer 1
-    :init
-    (setq exec-path-from-shell-variables '("PATH"
-                                            "EDITOR"
-                                            "GIT_EDITOR"
-                                            "MANPATH"
-                                            "BOXEN_HOME"
-                                            "BOXEN_BIN_DIR"
-                                            "BOXEN_CONFIG_DIR"
-                                            "BOXEN_DATA_DIR"
-                                            "BOXEN_ENV_DIR"
-                                            "BOXEN_LOG_DIR"
-                                            "BOXEN_SOCKET_DIR"
-                                            "BOXEN_SRC_DIR"
-                                            "BOXEN_DOWNLOAD_URL_BASE"
-                                            "BOXEN_HOMEBREW_BOTTLE_URL"
-                                            "BOXEN_GITHUB_LOGIN"
-                                            "BOXEN_ELASTICSEARCH_HOST"
-                                            "BOXEN_ELASTICSEARCH_PORT"
-                                            "BOXEN_ELASTICSEARCH_URL"
-                                            "BOXEN_MONGODB_HOST"
-                                            "BOXEN_MONGODB_PORT"
-                                            "BOXEN_MONGODB_URL"
-                                            "BOXEN_POSTGRESQL_HOST"
-                                            "BOXEN_POSTGRESQL_PORT"
-                                            "BOXEN_POSTGRESQL_URL"
-                                            "BOXEN_REDIS_HOST"
-                                            "BOXEN_REDIS_PORT"
-                                            "BOXEN_REDIS_URL"
-                                            "BOXEN_MEMCACHED_PORT"
-                                            "BOXEN_MEMCACHED_URL"
-                                            "BOXEN_MYSQL_PORT"
-                                            "BOXEN_MYSQL_SOCKET"
-                                            "BOXEN_MYSQL_URL"
-                                            "BOXEN_SETUP_VERSION"
-                                            "RBENV_ROOT"
-                                            "BUNDLE_JOBS"
-                                            "GOPATH"))
-    :config
-    (exec-path-from-shell-initialize))
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :ensure t
+  :config
+  (setq exec-path-from-shell-arguments '("-l" "-i"))
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-env "PATH")
+  (exec-path-from-shell-copy-env "EDITOR")
+  (exec-path-from-shell-copy-env "GIT_EDITOR")
+  (exec-path-from-shell-copy-env "MANPATH")
+  (exec-path-from-shell-copy-env "ASDF_DIR")
+  (exec-path-from-shell-copy-env "ERL_AFLAGS")
+  (exec-path-from-shell-copy-env "BUNDLE_JOBS")
+  (exec-path-from-shell-copy-env "GOPATH")
+  )
 
+
+(when (eq system-type 'darwin)
   ;; Default font thanks
   (set-frame-font "Operator Mono-14:weight=normal")
   ;;(set-frame-font "Office Code Pro D-14:weight=light")
