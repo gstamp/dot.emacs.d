@@ -3159,6 +3159,16 @@ Repeated invocations toggle between the two most recently open buffers."
   (shackle-mode 1))
 
 
+;;;;;;;;;;;;;
+;; ES Mode ;;
+;;;;;;;;;;;;;
+
+(use-package es-mode
+  :ensure t
+  :config
+  (setq es-always-pretty-print t
+    es-warn-on-delete-query nil))
+
 ;;;;;;;;;;;;;;;;;;;;
 ;; FiraCode Setup ;;
 ;;;;;;;;;;;;;;;;;;;;
