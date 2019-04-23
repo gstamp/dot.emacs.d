@@ -395,9 +395,9 @@
   (setq ivy-virtual-abbreviate 'full)   ; Show the full virtual file paths
   (setq ivy-extra-directories nil)      ; don't show . and ..
   (setq ivy-count-format "")            ;; Don't count candidates
-  (setq ivy-re-builders-alist
-    '((swiper . ivy--regex-plus)
-       (t . ivy--regex-fuzzy)))
+  ;; (setq ivy-re-builders-alist
+  ;;   '((swiper . ivy--regex-plus)
+  ;;      (t . ivy--regex-fuzzy)))
 
   (general-define-key :keymaps '(ivy-occur-mode-map ivy-occur-grep-mode-map)
     :states '(emacs)
@@ -675,7 +675,6 @@ _p_/_n_      _d_one        ^^           _i_nsert      ^^_m_atcher: %-7s(ivy--mat
         (current-buffer))
       (normal-mode)
       (goto-char origin))) )
-
 
 ;;;;;;;;;;;;;;;
 ;; Selection ;;
