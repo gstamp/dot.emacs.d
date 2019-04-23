@@ -1250,6 +1250,8 @@ the right."
   ;; After evaling org babel redisplay images
   (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
+  (use-package ob-elixir)
+
   :config
   (add-hook 'org-shiftup-final-hook 'windmove-up)
   (add-hook 'org-shiftleft-final-hook 'windmove-left)
@@ -1286,7 +1288,9 @@ the right."
        (js . t)
        (ruby . t)
        (dot . t)
-       (shell . t)))
+       (shell . t)
+       (elixir . t)
+       ))
 
 
   (require 'org-crypt)
