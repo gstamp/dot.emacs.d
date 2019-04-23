@@ -1321,7 +1321,6 @@ the right."
     (add-hook 'markdown-mode-hook 'pandoc-mode)
     (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Hideshow - Completion ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1455,6 +1454,7 @@ current buffer."
   (setq hs-org/trigger-keys-block (list (kbd "TAB")
                                     (kbd "<C-tab>")) )
   )
+
 
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Javascript/JSON ;;
