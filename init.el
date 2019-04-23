@@ -2607,29 +2607,6 @@ buffer is not visiting a file, prompt for a file name."
       ;; Abbrev mode seems broken for some reason
       (abbrev-mode -1))))
 
-(use-package rbenv
-  :init
-  (progn
-    ;; No bright red version in the modeline thanks
-    (setq rbenv-modeline-function 'rbenv--modeline-plain)
-
-    (defun stamp/enable-rbenv ()
-      "Enable rbenv, use .ruby-version if exists."
-      (require 'rbenv)
-
-      (let ((version-file-path (rbenv--locate-file ".ruby-version")))
-        (global-rbenv-mode)
-        ;; try to use the ruby defined in .ruby-version
-        (if version-file-path
-          (progn
-            (rbenv-use (rbenv--read-version-from-file
-                         version-file-path))
-            (message (concat "[rbenv] Using ruby version "
-                       "from .ruby-version file.")))
-          (message "[rbenv] Using the currently activated ruby."))))
-    (add-hook 'ruby-mode-hook #'stamp/enable-rbenv)
-    (add-hook 'enh-ruby-mode-hook #'stamp/enable-rbenv)))
-
 (use-package rubocop
   :commands (rubocop-check-project rubocop-check-directory rubocop-check-current-file
               rubocop-autocorrect-project rubocop-autocorrect-directory
