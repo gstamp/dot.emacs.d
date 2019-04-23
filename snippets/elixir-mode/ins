@@ -2,4 +2,4 @@
 # name: ins
 # key: ins
 # --
- |> IO.inspect(label: "$1")$0
+ |> IO.inspect(label: "🌽 $1")$0
