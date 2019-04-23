@@ -1005,13 +1005,12 @@ the right."
   (setq magit-completing-read-function 'ivy-completing-read))
 
 (use-package git-link
-  :commands (git-link git-link-commit github-pr)
+  ;; :commands (git-link git-link-commit github-pr)
   :config
   (setq git-link-open-in-browser t)
 
   (defun github-pr (&optional prompt)
     (interactive "P")
-    (command-execute 'git-link)  ;; this is just here to force autoloading of git-link
     (let* ((remote-name    (if prompt (read-string "Remote: " nil nil git-link-default-remote)
                              (git-link--remote)))
             (parsed-remote (git-link--parse-remote (git-link--remote-url remote-name)))
