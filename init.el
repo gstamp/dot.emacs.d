@@ -210,9 +210,6 @@
 ;; Enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; Echo commands quickly
-(setq echo-keystrokes 0.02)
-
 ;; Slower mouse scroll
 (setq mouse-wheel-scroll-amount '(1))
 
